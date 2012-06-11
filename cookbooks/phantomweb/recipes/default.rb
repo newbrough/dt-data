@@ -1,13 +1,22 @@
 app_dir = node[:appdir]
+ve_dir = node[app][:virtualenv][:path]
 
 include_recipe "git"
+include_recipe "python"
+include_recipe "virtualenv"
+
+[ :create, :activate ].each do |act|
+  virtualenv ve_dir do
+    owner node[app][:username]
+    group node[app][:groupname]
+    python node[app][:virtualenv][:python]
+    virtualenv node[app][:virtualenv][:virtualenv]
+    action act
+  end
+end
 
 case node[:platform]
 when "debian", "ubuntu"
-  execute "apt-get update" do
-    command "apt-get update"
-  end
-
   %w{ apache2 libapache2-mod-wsgi }.each do |pkg|
       package pkg
   end
@@ -95,4 +104,3 @@ execute "restart apache2" do
     group "root"
     command "/etc/init.d/apache2 restart"
 end
-
