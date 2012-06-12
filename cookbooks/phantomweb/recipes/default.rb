@@ -7,10 +7,10 @@ include_recipe "virtualenv"
 
 [ :create, :activate ].each do |act|
   virtualenv ve_dir do
-    owner node[app][:username]
-    group node[app][:groupname]
-    python node[app][:virtualenv][:python]
-    virtualenv node[app][:virtualenv][:virtualenv]
+    owner node[:username]
+    group node[:groupname]
+    python node[:virtualenv][:python]
+    virtualenv node[:virtualenv][:virtualenv]
     action act
   end
 end
