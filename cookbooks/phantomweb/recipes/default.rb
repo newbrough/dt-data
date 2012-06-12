@@ -1,5 +1,5 @@
 app_dir = node[:appdir]
-ve_dir = node[app][:virtualenv][:path]
+ve_dir = node[:virtualenv][:path]
 
 include_recipe "git"
 include_recipe "python"
