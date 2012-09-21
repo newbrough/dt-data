@@ -7,3 +7,13 @@ apps:
   - name: <%=@name %>
     version: 0.0.1
     processapp: [<%=@name %>, <%=@module %>, <%=@class %>]
+
+  - name: testing_agent
+    version: 0.1
+    processapp: [testing_agent, ape.agent.configurable_agent, ConfigurableAgent]
+    config:
+      connector:
+        type: AQMPConnector
+        inbound_exchange: ape-requests
+        outbound_exchange: ape-results
+
